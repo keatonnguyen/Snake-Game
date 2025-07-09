@@ -144,6 +144,40 @@ public class GamePanel extends JPanel implements ActionListener
     }
 
     
+    public void gameOver(Graphics g) 
+    {
+        g.setColor(Color.black);
+        g.setFont(new Font("SansSerif", Font.BOLD, 75));
+        FontMetrics metrics = getFontMetrics(g.getFont());
+        g.drawString("Game Over", (WIDTH - metrics.stringWidth("Game Over")) / 2, HEIGHT / 2);
+
+        //Replay
+        g.setFont(new Font("SansSerif", Font.PLAIN, 30));
+        String msg = "Press ENTER to play again";
+        g.drawString(msg, (WIDTH - g.getFontMetrics().stringWidth(msg)) / 2, HEIGHT / 2 + 50);
+    }
+
+    
+    public void restartGame() 
+    {
+        bodyParts = 6;
+        applesEaten = 0;
+        direction = 'R';
+        running = true;
+        gameOver = false;
+
+        // Reset positions
+        for (int i = 0; i < x.length; i++) 
+        {
+            x[i] = 0;
+            y[i] = 0;
+        }
+
+        newApple();
+        timer.restart();
+    }
+
+    
     //Keyboard inputs for WASD
     public class MyKeyAdapter extends KeyAdapter 
     {
