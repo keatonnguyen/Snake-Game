@@ -69,14 +69,14 @@ public class GamePanel extends JPanel implements ActionListener
             // Paint snake
             for (int i = 0; i < bodyParts; i++) 
             {
-                g.setColor(i == 0 ? Color.blue : Color.blue);
+                g.setColor(Color.blue);
                 g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
             }
 
             // Score color
             g.setColor(Color.black);
             g.setFont(new Font("SansSerif", Font.BOLD, 30));
-            g.drawString("Score: " + applesEaten, 10, 30);
+            g.drawString("SCORE: " + applesEaten, 10, 30);
         } 
         
         else 
