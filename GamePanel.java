@@ -106,7 +106,44 @@ public class GamePanel extends JPanel implements ActionListener
         }
     }
 
+    
+    public void checkApple() 
+    {
+        if (x[0] == appleX && y[0] == appleY) 
+        {
+            bodyParts++;
+            applesEaten++;
+            newApple();
+        }
+    }
 
+    
+    public void checkCollisions() 
+    {
+        // Body
+        for (int i = bodyParts; i > 0; i--) 
+        {
+            if (x[0] == x[i] && y[0] == y[i]) 
+            {
+                running = false;
+                break;
+            }
+        }
+
+        // Walls
+        if (x[0] < 0 || x[0] >= WIDTH || y[0] < 0 || y[0] >= HEIGHT) 
+        {
+            running = false;
+        }
+
+        if (!running) 
+        {
+            timer.stop();
+            gameOver = true;
+        }
+    }
+
+    
     //Keyboard inputs for WASD
     public class MyKeyAdapter extends KeyAdapter 
     {
