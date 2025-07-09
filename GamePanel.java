@@ -20,7 +20,7 @@ public class GamePanel extends JPanel implements ActionListener
     int applesEaten;
     int appleX;
     int appleY;
-    char direction = 'R';
+    char direction = 'right';
     boolean running = false;
     Timer timer;
     Random random;
@@ -99,10 +99,10 @@ public class GamePanel extends JPanel implements ActionListener
         //Move the head of the snake
         switch (direction) 
         {
-            case 'U': y[0] -= UNIT_SIZE; break;
-            case 'D': y[0] += UNIT_SIZE; break;
-            case 'L': x[0] -= UNIT_SIZE; break;
-            case 'R': x[0] += UNIT_SIZE; break;
+            case 'up': y[0] -= UNIT_SIZE; break;
+            case 'down': y[0] += UNIT_SIZE; break;
+            case 'left': x[0] -= UNIT_SIZE; break;
+            case 'right': x[0] += UNIT_SIZE; break;
         }
     }
 
@@ -116,19 +116,19 @@ public class GamePanel extends JPanel implements ActionListener
             switch (e.getKeyCode()) 
             {
                 case KeyEvent.VK_A:
-                    if (direction != 'R') direction = 'L';
+                    if (direction != 'right') direction = 'left';
                     break;
 
                 case KeyEvent.VK_D:
-                    if (direction != 'L') direction = 'R';
+                    if (direction != 'left') direction = 'right';
                     break;
 
                 case KeyEvent.VK_W:
-                    if (direction != 'D') direction = 'U';
+                    if (direction != 'down') direction = 'up';
                     break;
 
                 case KeyEvent.VK_S:
-                    if (direction != 'U') direction = 'D';
+                    if (direction != 'up') direction = 'down';
                     break;
             }
         }
