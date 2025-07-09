@@ -8,12 +8,12 @@ import java.util.Random;
 public class GamePanel extends JPanel implements ActionListener 
 {
 
+    //Settings
     static final int WIDTH = 800;
     static final int HEIGHT = 600;
     static final int UNIT_SIZE = 25;
     static final int GAME_UNITS = (WIDTH * HEIGHT) / (UNIT_SIZE * UNIT_SIZE);
     static final int DELAY = 100;
-
     final int[] x = new int[GAME_UNITS];
     final int[] y = new int[GAME_UNITS];
     int bodyParts = 6;
@@ -24,7 +24,10 @@ public class GamePanel extends JPanel implements ActionListener
     boolean running = false;
     Timer timer;
     Random random;
+    boolean gameOver = false;
 
+
+    //UI
     public GamePanel() 
     {
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -35,6 +38,76 @@ public class GamePanel extends JPanel implements ActionListener
         startGame();
     }
 
+
+    //Setup
+    public void startGame() 
+    {
+        newApple();
+        running = true;
+        timer = new Timer(DELAY, this);
+        timer.start();
+    }
+
+    
+    public void newApple() 
+    {
+        appleX = random.nextInt(WIDTH / UNIT_SIZE) * UNIT_SIZE;
+        appleY = random.nextInt(HEIGHT / UNIT_SIZE) * UNIT_SIZE;
+    }
+
+    
+    public void paintComponent(Graphics g) 
+    {
+        super.paintComponent(g);
+        if (running) 
+        {
+            
+            // Paint apple
+            g.setColor(Color.red);
+            g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
+
+            // Paint snake
+            for (int i = 0; i < bodyParts; i++) 
+            {
+                g.setColor(i == 0 ? Color.blue : Color.blue);
+                g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
+            }
+
+            // Score color
+            g.setColor(Color.black);
+            g.setFont(new Font("SansSerif", Font.BOLD, 30));
+            g.drawString("Score: " + applesEaten, 10, 30);
+        } 
+        
+        else 
+        {
+            gameOver(g);
+        }
+    }
+
+    
+    public void move() 
+    {
+
+        //Shift body parts
+        for (int i = bodyParts; i > 0; i--) 
+        {
+            x[i] = x[i - 1];
+            y[i] = y[i - 1];
+        }
+
+        //Move the head of the snake
+        switch (direction) 
+        {
+            case 'U': y[0] -= UNIT_SIZE; break;
+            case 'D': y[0] += UNIT_SIZE; break;
+            case 'L': x[0] -= UNIT_SIZE; break;
+            case 'R': x[0] += UNIT_SIZE; break;
+        }
+    }
+
+
+    //Keyboard inputs for WASD
     public class MyKeyAdapter extends KeyAdapter 
     {
         @Override
@@ -42,19 +115,19 @@ public class GamePanel extends JPanel implements ActionListener
         {
             switch (e.getKeyCode()) 
             {
-                case KeyEvent.VK_LEFT:
+                case KeyEvent.VK_A:
                     if (direction != 'R') direction = 'L';
                     break;
 
-                case KeyEvent.VK_RIGHT:
+                case KeyEvent.VK_D:
                     if (direction != 'L') direction = 'R';
                     break;
 
-                case KeyEvent.VK_UP:
+                case KeyEvent.VK_W:
                     if (direction != 'D') direction = 'U';
                     break;
 
-                case KeyEvent.VK_DOWN:
+                case KeyEvent.VK_S:
                     if (direction != 'U') direction = 'D';
                     break;
             }
