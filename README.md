@@ -12,8 +12,8 @@ This is a classic **Snake Game** implemented in **Java** using **Swing** for gra
 
 ## Requirements
 
-- **Java Development Kit (JDK)** version 8 or higher.
-- **IDE** or **text editor** (like IntelliJ IDEA, Eclipse, or VSCode) for running the project.
+- **Java Development Kit (JDK)**
+- **IDE** or **text editor** 
 
 ## How to Run
 
